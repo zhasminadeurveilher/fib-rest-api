@@ -1,0 +1,12 @@
+package com.fib.fibrestapi.repository;
+
+import com.fib.fibrestapi.entity.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    List<Transaction> findByCurrentAccountId(Long currentAccountId);
+}
