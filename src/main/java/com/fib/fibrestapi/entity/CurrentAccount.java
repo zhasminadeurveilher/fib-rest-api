@@ -3,6 +3,7 @@ package com.fib.fibrestapi.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,6 +22,9 @@ public class CurrentAccount {
     private String accountNumber;
 
     private BigDecimal balance;
+
+    @OneToMany(mappedBy = "currentAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
