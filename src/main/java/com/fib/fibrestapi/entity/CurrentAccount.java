@@ -15,7 +15,6 @@ public class CurrentAccount {
 
     private String currency;
 
-    @Column(nullable = false)
     private String name;
 
     @Column(name="account_number", nullable = false, unique = true)

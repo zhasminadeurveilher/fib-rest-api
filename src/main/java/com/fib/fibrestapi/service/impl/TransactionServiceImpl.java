@@ -30,18 +30,33 @@ public class TransactionServiceImpl implements TransactionService {
 
         Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
 
-
         BigDecimal amount = transaction.getAmount() == null ? new BigDecimal(0) : transaction.getAmount();
 
-        if(!transaction.getIsCredit()){
+        if (!transaction.getIsCredit()) {
             //check if the amount is enough to perform the transaction if it is a debit transaction
-            if(currentAccount.getBalance().subtract(amount).compareTo(new BigDecimal(0)) == -1){
+            if (currentAccount.getBalance().subtract(amount).compareTo(new BigDecimal(0)) == -1) {
                 throw new RuntimeException("Balance is not enough to perform the operation.");
             }
             currentAccount.setBalance(currentAccount.getBalance().subtract(amount));
-
-        }else{
+        } else {
             currentAccount.setBalance(currentAccount.getBalance().add(amount));
+        }
+
+        //TO DO implement sender and receiver when a transaction is done from another account of different user to the current one
+        if (transaction.getReceiver() == null) {
+            transaction.setReceiver(transaction.getIsCredit() ? currentAccount.getCustomer().getName() + " " + currentAccount.getCustomer().getSurname() :
+                    "Mr.XXX" + " " + "YYY");
+        }
+        if (transaction.getReceiverAccount() == null) {
+            transaction.setReceiverAccount(transaction.getIsCredit() ? currentAccount.getAccountNumber() : "BEXXXXXXXXXXXXXX");
+        }
+
+        if (transaction.getSender() == null) {
+            transaction.setSender(transaction.getIsCredit() ? "Mr.XXX" + " " + "YYY" : currentAccount.getCustomer().getName() + " " + currentAccount.getCustomer().getSurname());
+        }
+
+        if (transaction.getSenderAccount() == null) {
+            transaction.setSenderAccount(transaction.getIsCredit() ? "BEXXXXXXXXXXXXXX" : currentAccount.getAccountNumber());
         }
 
         currentAccountRepository.save(currentAccount);
@@ -58,7 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
         List<Transaction> transactionsList = transactionRepository.findByCurrentAccountId(currentAccountId);
         List<TransactionDto> transactionsDtoList = new ArrayList<>();
 
-        for(Transaction transaction: transactionsList){
+        for (Transaction transaction : transactionsList) {
             transactionsDtoList.add(modelMapper.map(transaction, TransactionDto.class));
         }
 
