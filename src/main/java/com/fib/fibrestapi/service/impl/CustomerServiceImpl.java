@@ -2,6 +2,7 @@ package com.fib.fibrestapi.service.impl;
 
 import com.fib.fibrestapi.entity.Customer;
 import com.fib.fibrestapi.payload.CustomerDto;
+import com.fib.fibrestapi.payload.CustomerSimpleInfoDto;
 import com.fib.fibrestapi.repository.CustomerRepository;
 import com.fib.fibrestapi.service.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -19,5 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto getCustomerInformation(Long customerId) {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer with id: " + customerId + " not found"));
         return modelMapper.map(customer, CustomerDto.class);
+    }
+
+    @Override
+    public CustomerSimpleInfoDto findByUsername(String username) {
+        Customer customer = customerRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Customer with username: " + username + " not found"));
+        return modelMapper.map(customer, CustomerSimpleInfoDto.class);
     }
 }
