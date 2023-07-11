@@ -19,6 +19,12 @@ public class Transaction {
     private String description;
 
     @Column(nullable = false)
+    private String sender;
+
+    @Column(name="sender_account", nullable = false)
+    private String senderAccount;
+
+    @Column(nullable = false)
     private String receiver;
 
     @Column(name="receiver_account", nullable = false)

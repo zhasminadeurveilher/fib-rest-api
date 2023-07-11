@@ -11,4 +11,5 @@ public class CurrentAccountDto {
     private String currency;
     private String accountNumber;
     private BigDecimal balance;
+    private BigDecimal initialCredit;
 }
