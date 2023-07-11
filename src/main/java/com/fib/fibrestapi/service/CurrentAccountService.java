@@ -1,7 +1,6 @@
 package com.fib.fibrestapi.service;
 
 import com.fib.fibrestapi.payload.CurrentAccountDto;
-
 import java.util.List;
 
 public interface CurrentAccountService {

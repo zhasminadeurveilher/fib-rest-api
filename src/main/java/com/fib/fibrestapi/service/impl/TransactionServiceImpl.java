@@ -7,6 +7,7 @@ import com.fib.fibrestapi.repository.CurrentAccountRepository;
 import com.fib.fibrestapi.repository.TransactionRepository;
 import com.fib.fibrestapi.service.TransactionService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,15 +15,12 @@ import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
+    @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
     CurrentAccountRepository currentAccountRepository;
+    @Autowired
     ModelMapper modelMapper;
-
-    public TransactionServiceImpl(TransactionRepository transactionRepository, CurrentAccountRepository currentAccountRepository, ModelMapper modelMapper) {
-        this.transactionRepository = transactionRepository;
-        this.currentAccountRepository = currentAccountRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public TransactionDto addTransaction(TransactionDto transactionDto, Long currentAccountId) {

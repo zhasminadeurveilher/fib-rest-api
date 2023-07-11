@@ -11,7 +11,6 @@ import com.fib.fibrestapi.service.CurrentAccountService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,19 +18,16 @@ import java.util.List;
 
 @Service
 public class CurrentAccountServiceImpl implements CurrentAccountService {
+    @Autowired
     CurrentAccountRepository currentAccountRepository;
+    @Autowired
     CustomerRepository customerRepository;
+    @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
     ModelMapper modelMapper;
     @Autowired
     private TransactionServiceImpl transactionService;
-
-    public CurrentAccountServiceImpl(CurrentAccountRepository currentAccountRepository, CustomerRepository customerRepository, TransactionRepository transactionRepository, ModelMapper modelMapper) {
-        this.currentAccountRepository = currentAccountRepository;
-        this.customerRepository = customerRepository;
-        this.transactionRepository = transactionRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public CurrentAccountDto addCurrentAccount(CurrentAccountDto currentAccountDto, Long customerId) {

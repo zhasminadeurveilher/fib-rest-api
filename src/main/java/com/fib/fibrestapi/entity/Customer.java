@@ -3,6 +3,8 @@ package com.fib.fibrestapi.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Customer {
@@ -21,4 +23,7 @@ public class Customer {
 
     @Column(nullable = false)
     private String surname;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CurrentAccount> currentAccounts;
 }
