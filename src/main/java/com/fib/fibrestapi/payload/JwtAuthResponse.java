@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerLoginDto {
-    private String username;
-    private String password;
+public class JwtAuthResponse {
+    private String accessToken;
+    private String tokenType = "Bearer";
+    private Long customerId;
 }
+
